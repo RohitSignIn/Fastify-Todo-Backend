@@ -1,16 +1,10 @@
-export const getAll = async (server, opts) => {
-  // const users = await server.prisma.User.findMany();
-  return users;
-  return "Rohit";
-};
+class UserRepository {
+  async getAll(server, opts) {
+    // const users = await server.prisma.User.findMany();
+    // return users;
 
-// class UserRepository {
-//   async getAll(server, opts) {
-//     // const users = await server.prisma.User.findMany();
-//     // return users;
+    return "Rohit";
+  }
+}
 
-//     return { ping: "success" };
-//   }
-// }
-
-// export default UserRepository;
+export default UserRepository;

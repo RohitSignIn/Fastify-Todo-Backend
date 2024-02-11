@@ -19,6 +19,7 @@ app.register(mainRoutes, { prefix: "/api" });
 //   });
 // })();
 
+// NOTE: Root Plugin is Already Booted showing while using app.ready -- Search it
 // Run the server!
 app.listen({ port: 8000 }, () => {
   console.log("listening on port");
