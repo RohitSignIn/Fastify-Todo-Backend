@@ -1,5 +1,16 @@
-const fetchAllUser = (req, reply) => {
-  return { ping: "success" };
+// import UserRepository from "../repository/user.repository.js";
+// import UserService from "../services/user.service.js";
+import { getAllService } from "../services/user.service.js";
+
+// const userService = new UserService(new UserRepository());
+
+const fetchAllUser = async (req, reply) => {
+  try {
+    const users = await getAllService();
+    return { users: users };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const fetchUserById = (req, reply) => {
@@ -18,10 +29,4 @@ const deleteUser = (req, reply) => {
   return { ping: "success" };
 };
 
-module.exports = {
-  fetchAllUser,
-  fetchUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-};
+export { fetchAllUser, fetchUserById, createUser, updateUser, deleteUser };

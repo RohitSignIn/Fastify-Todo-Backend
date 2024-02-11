@@ -1,10 +1,10 @@
-const {
+import {
   fetchAllUser,
   fetchUserById,
   createUser,
   updateUser,
   deleteUser,
-} = require("../../controllers/user.controller");
+} from "../../controllers/user.controller.js";
 
 const userRoute = (fastify, options, done) => {
   // Get all Users
@@ -25,4 +25,4 @@ const userRoute = (fastify, options, done) => {
   done();
 };
 
-module.exports = userRoute;
+export default userRoute;

@@ -1,8 +1,8 @@
-const v1Router = require("./v1/index");
+import v1Router from "./v1/v1.route.js";
 
 const mainRoutes = (fastify, options, done) => {
   fastify.register(v1Router, { prefix: "/v1" });
   done();
 };
 
-module.exports = mainRoutes;
+export default mainRoutes;

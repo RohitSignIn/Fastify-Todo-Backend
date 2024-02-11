@@ -2,6 +2,7 @@
   "name": "fastify2",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
@@ -11,6 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@joggr/fastify-prisma": "^1.2.2",
+    "@prisma/client": "^5.9.1",
     "fastify": "^4.26.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.9.1"
   }
 }

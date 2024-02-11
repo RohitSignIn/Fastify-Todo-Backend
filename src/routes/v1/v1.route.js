@@ -1,5 +1,5 @@
-const todoRoute = require("./todo.route");
-const userRoute = require("./user.route");
+import todoRoute from "./todo.route.js";
+import userRoute from "./user.route.js";
 
 const v1Router = (fastify, options, done) => {
   fastify.register(userRoute, { prefix: "/user" });
@@ -8,4 +8,4 @@ const v1Router = (fastify, options, done) => {
   done();
 };
 
-module.exports = v1Router;
+export default v1Router;

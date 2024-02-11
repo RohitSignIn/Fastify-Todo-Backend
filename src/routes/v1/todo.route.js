@@ -1,26 +1,28 @@
-const todoRoute = (fastify, options, done) => {
-  fastify.get("/", () => {
-    return { user: "ping success" };
-  });
+import {
+  fetchAllTodo,
+  fetchTodoById,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+} from "../../controllers/todo.controller.js";
 
-  fastify.get("/:id", (req, reply) => {
-    console.log(req.id);
-    return { user: "ping success" };
-  });
+const TodoRoute = (fastify, options, done) => {
+  // Get all Todos
+  fastify.get("/", fetchAllTodo);
 
-  fastify.post("/", () => {
-    return { user: "ping success" };
-  });
+  // Get Todo By Id
+  fastify.get("/:id", fetchTodoById);
 
-  fastify.put("/", () => {
-    return { user: "ping success" };
-  });
+  // Create Todo
+  fastify.post("/", createTodo);
 
-  fastify.delete("/:id", () => {
-    return { user: "ping success" };
-  });
+  // Update Todo
+  fastify.put("/", updateTodo);
+
+  // Delete Todo
+  fastify.delete("/:id", deleteTodo);
 
   done();
 };
 
-module.exports = todoRoute;
+export default TodoRoute;

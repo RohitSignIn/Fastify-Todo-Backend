@@ -1,0 +1,33 @@
+// Note: npx prisma generate -> to generate prisma client
+// Note: npx prisma migrate dev -> to make changes in database schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:7777/tododb"
+}
+
+enum Status {
+    PENDING
+    COMPLETED
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String @unique
+  email String @unique
+  password String
+  todos Todo[]
+}
+
+model Todo {
+  id Int @id @default(autoincrement())
+  task String
+  status Status
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+}
+
