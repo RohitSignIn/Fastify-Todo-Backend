@@ -1,28 +1,28 @@
-// Import the framework and instantiate it
 import Fastify from "fastify";
-import { PrismaClient } from "@prisma/client";
-import fastifyPrisma from "@joggr/fastify-prisma";
+import fastifyMysql from "@fastify/mysql";
+// import fastifyPrisma from "@joggr/fastify-prisma";
 
 import mainRoutes from "./routes/main.route.js";
 
 const app = Fastify();
 
-// Declare a route1
-app.register(mainRoutes, { prefix: "/api" });
+(async () => {
+  // Route Setup
+  app.register(mainRoutes, { prefix: "/api" });
 
-// (async () => {
-//   // Declare a route1
-//   app.register(mainRoutes, { prefix: "/api" });
+  app.register(fastifyMysql, {
+    connectionString: "mysql://root:root@localhost:7777/tododb",
+  });
 
-//   await app.register(fastifyPrisma, {
-//     client: new PrismaClient(),
-//   });
-// })();
+  // Register Prisma Client
+  // await app.register(fastifyPrisma);
+
+  // Run the server!
+  app.listen({ port: 8000 }, () => {
+    console.log("listening on port");
+  });
+})();
 
 // NOTE: Root Plugin is Already Booted showing while using app.ready -- Search it
-// Run the server!
-app.listen({ port: 8000 }, () => {
-  console.log("listening on port");
-});
 
 // NOTE: Fastify default support text/plain and application/json

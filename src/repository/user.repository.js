@@ -1,9 +1,16 @@
-class UserRepository {
-  async getAll(server, opts) {
-    // const users = await server.prisma.User.findMany();
-    // return users;
+import fastify from "fastify";
 
-    return "Rohit";
+class UserRepository {
+  async getAll() {
+    let res = "";
+    fastify.mysql.query("SELECT * From user", function onResult(err, result) {
+      res = result;
+    });
+
+    return res;
+
+    // const users = await fastify.prisma.User.findMany();
+    // return users;
   }
 }
 

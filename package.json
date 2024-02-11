@@ -12,11 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/mysql": "^4.2.0",
     "@joggr/fastify-prisma": "^1.2.2",
     "@prisma/client": "^5.9.1",
-    "fastify": "^4.26.0"
-  },
-  "devDependencies": {
+    "fastify": "^4.26.0",
     "prisma": "^5.9.1"
   }
 }
