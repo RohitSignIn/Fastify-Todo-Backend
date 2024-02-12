@@ -9,6 +9,7 @@ import mainRoutes from "./routes/main.route.js";
 
 const app = Fastify();
 
+// configure autoLoad register plugin
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -16,6 +17,7 @@ app.register(autoLoad, {
   dir: join(__dirname, "plugins"),
 });
 
+// Register Routes
 app.register(mainRoutes, { prefix: "/api" });
 
 // Register Prisma - PrismaClient
@@ -23,12 +25,9 @@ app.register(mainRoutes, { prefix: "/api" });
   await app.register(fastifyPrisma);
 })();
 
+// Server Start
 app.ready(() => {
   app.listen({ port: 8000 }, () => {
     console.log("listening on port");
   });
 });
-
-// NOTE: Root Plugin is Already Booted showing while using app.ready -- Search it
-// NOTE: Fastify default support text/plain and application/json
-// Run the server!

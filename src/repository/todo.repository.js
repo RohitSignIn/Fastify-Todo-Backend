@@ -1,19 +1,68 @@
 class TodoRepository {
-  async getAll() {
-    return new Promise((resolve, reject) => {
-      this.fastify.mysql.query(
-        "SELECT * From user",
-        function onResult(err, result) {
-          if (err) {
-            reject(err);
-          }
-          resolve(result);
-        }
-      );
-    });
+  constructor(fastify) {
+    this.fastify = fastify;
+  }
 
-    // const users = await fastify.prisma.User.findMany();
-    // return users;
+  async getAll() {
+    try {
+      const todos = await this.fastify.prisma.Todo.findMany();
+      return todos;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getById(id) {
+    try {
+      // findUniqueOrThrow throws "NotFoundError" if not found
+      const todo = await this.fastify.prisma.Todo.findUniqueOrThrow({
+        where: { id: parseInt(id) },
+      });
+      return todo;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async create(task, userId) {
+    try {
+      const todo = await this.fastify.prisma.Todo.create({
+        data: {
+          task,
+          // STATUS CAN BE EITHER "PENDING" OR "COMPLETED" initally "PENDING"
+          status: "PENDING",
+          userId,
+        },
+      });
+      return todo;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async update(update, to, id) {
+    try {
+      const todo = await this.fastify.prisma.Todo.update({
+        where: { id },
+        data: {
+          [update]: to,
+        },
+      });
+      return todo;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async delete(id) {
+    try {
+      const todo = await this.fastify.prisma.Todo.delete({
+        where: { id: parseInt(id) },
+      });
+      return todo;
+    } catch (error) {
+      return error;
+    }
   }
 }
 

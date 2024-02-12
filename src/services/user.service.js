@@ -14,8 +14,8 @@ class UserService {
 
   async getById(id) {
     try {
-      const users = await this.fastify.userRepository.getById(id);
-      return users;
+      const user = await this.fastify.userRepository.getById(id);
+      return user;
     } catch (error) {
       return error;
     }
@@ -27,12 +27,12 @@ class UserService {
       const email = data.email;
       const password = data.password;
 
-      const users = await this.fastify.userRepository.create(
+      const user = await this.fastify.userRepository.create(
         name,
         email,
         password
       );
-      return users;
+      return user;
     } catch (error) {
       return error;
     }
@@ -44,8 +44,8 @@ class UserService {
       const to = data.to;
       const id = data.id;
 
-      const users = await this.fastify.userRepository.update(update, to, id);
-      return users;
+      const user = await this.fastify.userRepository.update(update, to, id);
+      return user;
     } catch (error) {
       return error;
     }
@@ -53,8 +53,8 @@ class UserService {
 
   async delete(id) {
     try {
-      const users = await this.fastify.userRepository.delete(id);
-      return users;
+      const user = await this.fastify.userRepository.delete(id);
+      return user;
     } catch (error) {
       return error;
     }

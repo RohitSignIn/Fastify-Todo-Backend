@@ -28,9 +28,9 @@ class UserRepository {
     try {
       const user = await this.fastify.prisma.User.create({
         data: {
-          name: name,
-          email: email,
-          password: password,
+          name,
+          email,
+          password,
         },
       });
       return user;
