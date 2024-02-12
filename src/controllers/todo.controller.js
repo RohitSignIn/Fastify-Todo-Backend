@@ -1,21 +1,21 @@
-const fetchAllTodo = (req, reply) => {
+async function fetchAllTodo(req, reply) {
   return { ping: "done" };
-};
+}
 
-const fetchTodoById = (req, reply) => {
+async function fetchTodoById(req, reply) {
   return { ping: "success" };
-};
+}
 
-const createTodo = (req, reply) => {
+async function createTodo(req, reply) {
   return { ping: "success" };
-};
+}
 
-const updateTodo = (req, reply) => {
+async function updateTodo(req, reply) {
   return { ping: "success" };
-};
+}
 
-const deleteTodo = (req, reply) => {
+async function deleteTodo(req, reply) {
   return { ping: "success" };
-};
+}
 
 export { fetchAllTodo, fetchTodoById, createTodo, updateTodo, deleteTodo };

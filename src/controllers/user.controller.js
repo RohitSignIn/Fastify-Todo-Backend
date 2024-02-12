@@ -1,27 +1,57 @@
-// import UserRepository from "../repository/user.repository.js";
-// import UserService from "../services/user.service.js";
+import constructResponse from "../utility/constructResponse.js";
 
-// using traditional function to get this instance correctly or we can say to get fastify instance
-async function fetchAllUser(req, reply) {
-  const users = await this.userService.getAll();
-  console.log(users);
-  return { success: users };
+async function fetchAllUser(req, res) {
+  try {
+    const users = await this.userService.getAll();
+    return res
+      .code(200)
+      .send(constructResponse(true, users, "Successfully fetched all users"));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-const fetchUserById = (req, reply) => {
-  return { ping: "success" };
-};
+async function fetchUserById(req, res) {
+  try {
+    const user = await this.userService.getById(req.params.id);
+    return res
+      .code(200)
+      .send(constructResponse(true, user, "Successfully fetch user"));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-const createUser = (req, reply) => {
-  return { ping: "success" };
-};
+async function createUser(req, res) {
+  try {
+    const user = await this.userService.create(req.body);
+    console.log(user);
+    return res
+      .code(201)
+      .send(constructResponse(true, user, "Successfully created user"));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-const updateUser = (req, reply) => {
-  return { ping: "success" };
-};
+async function updateUser(req, res) {
+  try {
+    const user = await this.userService.update(req.body);
+    return res
+      .code(201)
+      .send(constructResponse(true, user, "Successfully updated user"));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-const deleteUser = (req, reply) => {
-  return { ping: "success" };
-};
+async function deleteUser(req, res) {
+  try {
+    const users = await this.userService.delete(req.params.id);
+    return res.send(constructResponse(true, {}, "Successfully deleted user"));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export { fetchAllUser, fetchUserById, createUser, updateUser, deleteUser };
