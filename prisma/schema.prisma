@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:root@localhost:7777/tododb"
+  url      = env("DATABASE_URL")
 }
 
 enum Status {

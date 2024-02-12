@@ -22,6 +22,9 @@ const userRoute = (fastify, options, done) => {
   // Delete User
   fastify.delete("/:id", deleteUser);
 
+  // Signin User
+  // fastify.post("/signin", deleteUser);
+
   done();
 };
 
