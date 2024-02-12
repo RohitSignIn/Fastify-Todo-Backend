@@ -1,16 +1,12 @@
-import UserRepository from "../repository/user.repository.js";
-import UserService from "../services/user.service.js";
+// import UserRepository from "../repository/user.repository.js";
+// import UserService from "../services/user.service.js";
 
-const userService = new UserService(new UserRepository());
-
-const fetchAllUser = async (req, reply) => {
-  try {
-    const users = await userService.getAll();
-    return { users: users };
-  } catch (error) {
-    console.log(error);
-  }
-};
+// using traditional function to get this instance correctly or we can say to get fastify instance
+async function fetchAllUser(req, reply) {
+  const users = await this.userService.getAll();
+  console.log(users);
+  return { success: users };
+}
 
 const fetchUserById = (req, reply) => {
   return { ping: "success" };

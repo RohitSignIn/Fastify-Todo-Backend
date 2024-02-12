@@ -1,13 +1,16 @@
-import fastify from "fastify";
-
 class UserRepository {
   async getAll() {
-    let res = "";
-    fastify.mysql.query("SELECT * From user", function onResult(err, result) {
-      res = result;
+    return new Promise((resolve, reject) => {
+      this.fastify.mysql.query(
+        "SELECT * From user",
+        function onResult(err, result) {
+          if (err) {
+            reject(err);
+          }
+          resolve(result);
+        }
+      );
     });
-
-    return res;
 
     // const users = await fastify.prisma.User.findMany();
     // return users;
