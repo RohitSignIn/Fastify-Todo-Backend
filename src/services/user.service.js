@@ -1,3 +1,5 @@
+import getPasswordHashed from "../utility/getPasswordHashed.js";
+
 class UserService {
   constructor(fastify) {
     this.fastify = fastify;
@@ -25,8 +27,9 @@ class UserService {
     try {
       const name = data.name;
       const email = data.email;
-      const password = data.password;
+      const password = await getPasswordHashed(data.password);
 
+      console.log(password, "jshec");
       const user = await this.fastify.userRepository.create(
         name,
         email,
@@ -41,8 +44,12 @@ class UserService {
   async update(data) {
     try {
       const update = data.update;
-      const to = data.to;
+      let to = data.to;
       const id = data.id;
+
+      if (update == "password") {
+        to = await getPasswordHashed(to);
+      }
 
       const user = await this.fastify.userRepository.update(update, to, id);
       return user;
