@@ -1,4 +1,5 @@
 import getPasswordHashed from "../utility/getPasswordHashed.js";
+import passwordAuth from "../utility/passwordAuth.js";
 
 class UserService {
   constructor(fastify) {
@@ -10,7 +11,7 @@ class UserService {
       const users = await this.fastify.userRepository.getAll();
       return users;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -19,7 +20,7 @@ class UserService {
       const user = await this.fastify.userRepository.getById(id);
       return user;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -37,7 +38,7 @@ class UserService {
       );
       return user;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -54,7 +55,7 @@ class UserService {
       const user = await this.fastify.userRepository.update(update, to, id);
       return user;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -63,7 +64,24 @@ class UserService {
       const user = await this.fastify.userRepository.delete(id);
       return user;
     } catch (error) {
-      return error;
+      throw error;
+    }
+  }
+
+  async signin(data) {
+    try {
+      const user = await this.fastify.userRepository.getByEmail(data.email);
+      if (user) {
+        const authenticated = await passwordAuth(data.password, user.password);
+        if (!authenticated) {
+          throw new Error("Unauthorized");
+        }
+      } else {
+        throw new Error("Unauthorized");
+      }
+      return user;
+    } catch (error) {
+      throw error;
     }
   }
 }

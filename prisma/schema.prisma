@@ -17,7 +17,7 @@ enum Status {
 
 model User {
   id Int @id @default(autoincrement())
-  name String @unique
+  name String
   email String @unique
   password String
   todos Todo[]

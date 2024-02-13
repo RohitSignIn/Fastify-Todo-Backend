@@ -47,11 +47,29 @@ async function updateUser(req, res) {
 
 async function deleteUser(req, res) {
   try {
-    const users = await this.userService.delete(req.params.id);
+    const user = await this.userService.delete(req.params.id);
     return res.send(constructResponse(true, {}, "Successfully deleted user"));
   } catch (error) {
     console.log(error);
   }
 }
 
-export { fetchAllUser, fetchUserById, createUser, updateUser, deleteUser };
+async function signinUser(req, res) {
+  try {
+    const user = await this.userService.signin(req.body);
+    return res.send(
+      constructResponse(true, user, "Successfully authenticated")
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export {
+  fetchAllUser,
+  fetchUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+  signinUser,
+};

@@ -8,7 +8,7 @@ class UserRepository {
       const users = await this.fastify.prisma.User.findMany();
       return users;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -20,7 +20,19 @@ class UserRepository {
       });
       return user;
     } catch (error) {
-      return error;
+      throw error;
+    }
+  }
+
+  async getByEmail(email) {
+    try {
+      // findUniqueOrThrow throws "NotFoundError" if not found
+      const user = await this.fastify.prisma.User.findUniqueOrThrow({
+        where: { email: email },
+      });
+      return user;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -35,7 +47,7 @@ class UserRepository {
       });
       return user;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -49,7 +61,7 @@ class UserRepository {
       });
       return user;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -60,7 +72,7 @@ class UserRepository {
       });
       return user;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 }

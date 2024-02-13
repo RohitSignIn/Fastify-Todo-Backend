@@ -4,6 +4,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  signinUser,
 } from "../../controllers/user.controller.js";
 
 const userRoute = (fastify, options, done) => {
@@ -23,7 +24,7 @@ const userRoute = (fastify, options, done) => {
   fastify.delete("/:id", deleteUser);
 
   // Signin User
-  // fastify.post("/signin", deleteUser);
+  fastify.post("/signin", signinUser);
 
   done();
 };

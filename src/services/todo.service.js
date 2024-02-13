@@ -8,7 +8,7 @@ class TodoService {
       const todos = await this.fastify.todoRepository.getAll();
       return todos;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -17,7 +17,7 @@ class TodoService {
       const todo = await this.fastify.todoRepository.getById(id);
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -29,7 +29,7 @@ class TodoService {
       const todo = await this.fastify.todoRepository.create(task, userId);
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -42,7 +42,7 @@ class TodoService {
       const todo = await this.fastify.todoRepository.update(update, to, id);
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -51,7 +51,7 @@ class TodoService {
       const todo = await this.fastify.todoRepository.delete(id);
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 }

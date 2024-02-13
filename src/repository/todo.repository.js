@@ -8,7 +8,7 @@ class TodoRepository {
       const todos = await this.fastify.prisma.Todo.findMany();
       return todos;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -20,7 +20,7 @@ class TodoRepository {
       });
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -36,7 +36,7 @@ class TodoRepository {
       });
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -50,7 +50,7 @@ class TodoRepository {
       });
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 
@@ -61,7 +61,7 @@ class TodoRepository {
       });
       return todo;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 }
