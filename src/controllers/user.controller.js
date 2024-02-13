@@ -56,10 +56,15 @@ async function deleteUser(req, res) {
 
 async function signinUser(req, res) {
   try {
-    const user = await this.userService.signin(req.body);
-    return res.send(
-      constructResponse(true, user, "Successfully authenticated")
-    );
+    const token = await this.userService.signin(req.body);
+    return res
+      .setCookie("token", token, {
+        path: "/",
+        secure: true, // send cookie over HTTPS only
+        httpOnly: true,
+        sameSite: false, // alternative CSRF protection
+      })
+      .send(constructResponse(true, {}, "Successfully authenticated"));
   } catch (error) {
     console.log(error);
   }

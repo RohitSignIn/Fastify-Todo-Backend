@@ -4,6 +4,7 @@ import autoLoad from "@fastify/autoload";
 import fastifyEnv from "@fastify/env";
 import fastifyBcrypt from "fastify-bcrypt";
 import fastifyJwt from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -63,7 +64,7 @@ app.after(() => {
     dir: join(__dirname, "plugins"),
   });
 
-  // Registre JWT Plugin
+  // Register JWT Plugin
   app.register(fastifyJwt, {
     secret: app.env.JWT_SECRET,
     cookie: {
@@ -73,6 +74,9 @@ app.after(() => {
       expiresIn: app.env.EXPIRES_IN,
     },
   });
+
+  // Register fastify cookie plugin
+  app.register(fastifyCookie);
 
   // Register Prisma - PrismaClient
   (async () => {
