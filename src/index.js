@@ -60,7 +60,7 @@ app.after(() => {
   });
 
   // Registre JWT Plugin
-  app.register(jwt, { secret: app.env.JWT_SECRET });
+  app.register(fastifyJwt, { secret: app.env.JWT_SECRET });
 
   // Register Prisma - PrismaClient
   (async () => {
