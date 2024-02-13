@@ -3,6 +3,7 @@ import fastifyPrisma from "@joggr/fastify-prisma";
 import autoLoad from "@fastify/autoload";
 import fastifyEnv from "@fastify/env";
 import fastifyBcrypt from "fastify-bcrypt";
+import fastifyJwt from "@fastify/jwt";
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -14,7 +15,7 @@ const app = Fastify();
 // Setting up .env variables
 const schema = {
   type: "object",
-  required: ["PORT", "SALT_ROUND"],
+  required: ["PORT", "SALT_ROUND", "JWT_SECRET"],
   properties: {
     PORT: {
       type: "string",
@@ -23,6 +24,10 @@ const schema = {
     SALT_ROUND: {
       type: "integer",
       default: 10,
+    },
+    JWT_SECRET: {
+      type: "string",
+      default: "sTecOrePt",
     },
   },
 };
@@ -36,8 +41,6 @@ const options = {
 
 // Register fastify env plugin
 app.register(fastifyEnv, options);
-
-// Register Prisma - PrismaClient
 
 app.after(() => {
   // Register fastifyBcrypt plugin
@@ -56,9 +59,13 @@ app.after(() => {
     dir: join(__dirname, "plugins"),
   });
 
-  (async () => {
-    await app.register(fastifyPrisma);
-  })();
+  // Registre JWT Plugin
+  app.register(jwt, { secret: app.env.JWT_SECRET })(
+    // Register Prisma - PrismaClient
+    async () => {
+      await app.register(fastifyPrisma);
+    }
+  )();
 });
 
 // Server Start
