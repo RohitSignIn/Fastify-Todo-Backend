@@ -79,7 +79,12 @@ class UserService {
       } else {
         throw new Error("Unauthorized");
       }
-      return user;
+
+      let token = this.fastify.jwt.sign({
+        userId: user.id,
+      });
+
+      return token;
     } catch (error) {
       throw error;
     }

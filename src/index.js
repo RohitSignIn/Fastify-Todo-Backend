@@ -15,7 +15,7 @@ const app = Fastify();
 // Setting up .env variables
 const schema = {
   type: "object",
-  required: ["PORT", "SALT_ROUND", "JWT_SECRET"],
+  required: ["PORT", "SALT_ROUND", "JWT_SECRET", "EXPIRES_IN"],
   properties: {
     PORT: {
       type: "string",
@@ -28,6 +28,10 @@ const schema = {
     JWT_SECRET: {
       type: "string",
       default: "sTecOrePt",
+    },
+    EXPIRES_IN: {
+      type: "string",
+      default: "1d",
     },
   },
 };
@@ -60,7 +64,15 @@ app.after(() => {
   });
 
   // Registre JWT Plugin
-  app.register(fastifyJwt, { secret: app.env.JWT_SECRET });
+  app.register(fastifyJwt, {
+    secret: app.env.JWT_SECRET,
+    cookie: {
+      cookieName: "token",
+    },
+    sign: {
+      expiresIn: app.env.EXPIRES_IN,
+    },
+  });
 
   // Register Prisma - PrismaClient
   (async () => {
