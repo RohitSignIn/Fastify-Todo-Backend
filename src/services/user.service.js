@@ -28,7 +28,7 @@ class UserService {
     try {
       const name = data.name;
       const email = data.email;
-      const password = await getPasswordHashed(data.password);
+      const password = await this.fastify.bcrypt.hash(data.password);
 
       console.log(password, "jshec");
       const user = await this.fastify.userRepository.create(
@@ -49,7 +49,7 @@ class UserService {
       const id = data.id;
 
       if (update == "password") {
-        to = await getPasswordHashed(to);
+        to = await this.fastify.bcrypt.hash(data.password);
       }
 
       const user = await this.fastify.userRepository.update(update, to, id);
@@ -72,10 +72,10 @@ class UserService {
     try {
       const user = await this.fastify.userRepository.getByEmail(data.email);
       if (user) {
-        const authenticated = await passwordAuth(data.password, user.password);
-        if (!authenticated) {
-          throw new Error("Unauthorized");
-        }
+        const authenticated = await this.fastify.bcrypt.compare(
+          data.password,
+          user.password
+        );
       } else {
         throw new Error("Unauthorized");
       }
