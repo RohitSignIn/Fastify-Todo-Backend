@@ -1,5 +1,5 @@
-import getPasswordHashed from "../utility/getPasswordHashed.js";
-import passwordAuth from "../utility/passwordAuth.js";
+// import getPasswordHashed from "../utility/getPasswordHashed.js";
+// import passwordAuth from "../utility/passwordAuth.js";
 
 class UserService {
   constructor(fastify) {

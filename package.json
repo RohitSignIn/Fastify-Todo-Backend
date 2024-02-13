@@ -17,8 +17,9 @@
     "@fastify/mysql": "^4.2.0",
     "@joggr/fastify-prisma": "^1.2.2",
     "@prisma/client": "^5.9.1",
-    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.3",
     "fastify": "^4.26.0",
+    "fastify-bcrypt": "^1.0.1",
     "prisma": "^5.9.1"
   }
 }
