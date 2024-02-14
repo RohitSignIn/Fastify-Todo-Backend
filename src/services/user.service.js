@@ -30,7 +30,6 @@ class UserService {
       const email = data.email;
       const password = await this.fastify.bcrypt.hash(data.password);
 
-      console.log(password, "jshec");
       const user = await this.fastify.userRepository.create(
         name,
         email,
@@ -42,14 +41,13 @@ class UserService {
     }
   }
 
-  async update(data) {
+  async update(data, id) {
     try {
       const update = data.update;
       let to = data.to;
-      const id = data.id;
 
       if (update == "password") {
-        to = await this.fastify.bcrypt.hash(data.password);
+        to = await this.fastify.bcrypt.hash(to);
       }
 
       const user = await this.fastify.userRepository.update(update, to, id);
@@ -72,19 +70,23 @@ class UserService {
     try {
       const user = await this.fastify.userRepository.getByEmail(data.email);
       if (user) {
-        const authenticated = await this.fastify.bcrypt.compare(
+        // Comparing password
+        const auth = await this.fastify.bcrypt.compare(
           data.password,
           user.password
         );
-      } else {
-        throw new Error("Unauthorized");
+
+        // Generating Token If user is authenticated
+        if (auth) {
+          let token = this.fastify.jwt.sign({
+            userId: user.id,
+          });
+
+          return token;
+        }
       }
 
-      let token = this.fastify.jwt.sign({
-        userId: user.id,
-      });
-
-      return token;
+      throw new Error("Unauthorized");
     } catch (error) {
       throw error;
     }

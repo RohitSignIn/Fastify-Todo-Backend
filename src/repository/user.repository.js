@@ -15,8 +15,8 @@ class UserRepository {
   async getById(id) {
     try {
       // findUniqueOrThrow throws "NotFoundError" if not found
-      const user = await this.fastify.prisma.User.findUniqueOrThrow({
-        where: { id: parseInt(id) },
+      const user = await this.fastify.prisma.User.findMany({
+        where: { id },
       });
       return user;
     } catch (error) {
@@ -68,7 +68,7 @@ class UserRepository {
   async delete(id) {
     try {
       const user = await this.fastify.prisma.User.delete({
-        where: { id: parseInt(id) },
+        where: { id },
       });
       return user;
     } catch (error) {

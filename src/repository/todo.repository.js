@@ -63,7 +63,6 @@ class TodoRepository {
 
   async delete(id, userId) {
     try {
-      console.log(id, userId);
       const todo = await this.fastify.prisma.Todo.delete({
         where: {
           id: parseInt(id),

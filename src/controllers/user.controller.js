@@ -13,7 +13,7 @@ async function fetchAllUser(req, res) {
 
 async function fetchUserById(req, res) {
   try {
-    const user = await this.userService.getById(req.params.id);
+    const user = await this.userService.getById(req.userId);
     return res
       .code(200)
       .send(constructResponse(true, user, "Successfully fetch user"));
@@ -36,7 +36,7 @@ async function createUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const user = await this.userService.update(req.body);
+    const user = await this.userService.update(req.body, req.userId);
     return res
       .code(201)
       .send(constructResponse(true, user, "Successfully updated user"));
@@ -47,7 +47,7 @@ async function updateUser(req, res) {
 
 async function deleteUser(req, res) {
   try {
-    const user = await this.userService.delete(req.params.id);
+    const user = await this.userService.delete(req.userId);
     return res
       .code(202)
       .send(constructResponse(true, {}, "Successfully deleted user"));
