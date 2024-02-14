@@ -48,7 +48,9 @@ async function updateUser(req, res) {
 async function deleteUser(req, res) {
   try {
     const user = await this.userService.delete(req.params.id);
-    return res.send(constructResponse(true, {}, "Successfully deleted user"));
+    return res
+      .code(202)
+      .send(constructResponse(true, {}, "Successfully deleted user"));
   } catch (error) {
     console.log(error);
   }
@@ -58,6 +60,7 @@ async function signinUser(req, res) {
   try {
     const token = await this.userService.signin(req.body);
     return res
+      .code(200)
       .setCookie("token", token, {
         path: "/",
         secure: true, // send cookie over HTTPS only

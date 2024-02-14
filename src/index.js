@@ -5,6 +5,7 @@ import fastifyEnv from "@fastify/env";
 import fastifyBcrypt from "fastify-bcrypt";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
+import cors from "@fastify/cors";
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -78,8 +79,12 @@ app.after(() => {
   // Register fastify cookie plugin
   app.register(fastifyCookie);
 
-  // Register Prisma - PrismaClient
   (async () => {
+    // Register fastify CORS
+    await app.register(cors, {
+      origin: true,
+    });
+    // Register Prisma - PrismaClient
     await app.register(fastifyPrisma);
   })();
 });
