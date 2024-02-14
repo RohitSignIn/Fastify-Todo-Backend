@@ -3,20 +3,24 @@ class TodoRepository {
     this.fastify = fastify;
   }
 
-  async getAll() {
+  async getAll(userId) {
     try {
-      const todos = await this.fastify.prisma.Todo.findMany();
+      const todos = await this.fastify.prisma.Todo.findMany({
+        where: { userId: userId },
+      });
       return todos;
     } catch (error) {
       throw error;
     }
   }
 
-  async getById(id) {
+  async getById(id, userId) {
     try {
-      // findUniqueOrThrow throws "NotFoundError" if not found
-      const todo = await this.fastify.prisma.Todo.findUniqueOrThrow({
-        where: { id: parseInt(id) },
+      const todo = await this.fastify.prisma.Todo.findMany({
+        where: {
+          id: parseInt(id),
+          userId,
+        },
       });
       return todo;
     } catch (error) {
@@ -40,10 +44,13 @@ class TodoRepository {
     }
   }
 
-  async update(update, to, id) {
+  async update(update, to, id, userId) {
     try {
       const todo = await this.fastify.prisma.Todo.update({
-        where: { id },
+        where: {
+          id: parseInt(id),
+          userId,
+        },
         data: {
           [update]: to,
         },
@@ -54,10 +61,14 @@ class TodoRepository {
     }
   }
 
-  async delete(id) {
+  async delete(id, userId) {
     try {
+      console.log(id, userId);
       const todo = await this.fastify.prisma.Todo.delete({
-        where: { id: parseInt(id) },
+        where: {
+          id: parseInt(id),
+          userId,
+        },
       });
       return todo;
     } catch (error) {

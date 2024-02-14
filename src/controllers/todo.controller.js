@@ -2,7 +2,7 @@ import constructResponse from "../utility/constructResponse.js";
 
 async function fetchAllTodo(req, res) {
   try {
-    const todos = await this.todoService.getAll();
+    const todos = await this.todoService.getAll(req.userId);
     return res
       .code(200)
       .send(constructResponse(true, todos, "Successfully fetched all todos"));
@@ -13,7 +13,7 @@ async function fetchAllTodo(req, res) {
 
 async function fetchTodoById(req, res) {
   try {
-    const todo = await this.todoService.getById(req.params.id);
+    const todo = await this.todoService.getById(req.params.id, req.userId);
     return res
       .code(200)
       .send(constructResponse(true, todo, "Successfully fetch todo"));
@@ -24,7 +24,7 @@ async function fetchTodoById(req, res) {
 
 async function createTodo(req, res) {
   try {
-    const todo = await this.todoService.create(req.body);
+    const todo = await this.todoService.create(req.body, req.userId);
     console.log(todo);
     return res
       .code(201)
@@ -36,7 +36,7 @@ async function createTodo(req, res) {
 
 async function updateTodo(req, res) {
   try {
-    const todo = await this.todoService.update(req.body);
+    const todo = await this.todoService.update(req.body, req.userId);
     return res
       .code(201)
       .send(constructResponse(true, todo, "Successfully updated todo"));
@@ -47,7 +47,7 @@ async function updateTodo(req, res) {
 
 async function deleteTodo(req, res) {
   try {
-    const todos = await this.todoService.delete(req.params.id);
+    const todos = await this.todoService.delete(req.params.id, req.userId);
     return res.send(constructResponse(true, {}, "Successfully deleted todo"));
   } catch (error) {
     console.log(error);

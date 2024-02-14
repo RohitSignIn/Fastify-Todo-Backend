@@ -18,16 +18,40 @@ const TodoRoute = (fastify, options, done) => {
   );
 
   // Get Todo By Id
-  fastify.get("/:id", fetchTodoById);
+  fastify.get(
+    "/:id",
+    {
+      preHandler: validateJWT,
+    },
+    fetchTodoById
+  );
 
   // Create Todo
-  fastify.post("/", createTodo);
+  fastify.post(
+    "/",
+    {
+      preHandler: validateJWT,
+    },
+    createTodo
+  );
 
   // Update Todo
-  fastify.put("/", updateTodo);
+  fastify.put(
+    "/",
+    {
+      preHandler: validateJWT,
+    },
+    updateTodo
+  );
 
   // Delete Todo
-  fastify.delete("/:id", deleteTodo);
+  fastify.delete(
+    "/:id",
+    {
+      preHandler: validateJWT,
+    },
+    deleteTodo
+  );
 
   done();
 };

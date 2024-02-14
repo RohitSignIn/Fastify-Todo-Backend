@@ -3,28 +3,27 @@ class TodoService {
     this.fastify = fastify;
   }
 
-  async getAll() {
+  async getAll(userId) {
     try {
-      const todos = await this.fastify.todoRepository.getAll();
+      const todos = await this.fastify.todoRepository.getAll(userId);
       return todos;
     } catch (error) {
       throw error;
     }
   }
 
-  async getById(id) {
+  async getById(id, userId) {
     try {
-      const todo = await this.fastify.todoRepository.getById(id);
+      const todo = await this.fastify.todoRepository.getById(id, userId);
       return todo;
     } catch (error) {
       throw error;
     }
   }
 
-  async create(data) {
+  async create(data, userId) {
     try {
       const task = data.task;
-      const userId = data.userId;
 
       const todo = await this.fastify.todoRepository.create(task, userId);
       return todo;
@@ -33,22 +32,28 @@ class TodoService {
     }
   }
 
-  async update(data) {
+  async update(data, userId) {
     try {
       const update = data.update;
       const to = data.to;
+      // Todo Id
       const id = data.id;
 
-      const todo = await this.fastify.todoRepository.update(update, to, id);
+      const todo = await this.fastify.todoRepository.update(
+        update,
+        to,
+        id,
+        userId
+      );
       return todo;
     } catch (error) {
       throw error;
     }
   }
 
-  async delete(id) {
+  async delete(id, userId) {
     try {
-      const todo = await this.fastify.todoRepository.delete(id);
+      const todo = await this.fastify.todoRepository.delete(id, userId);
       return todo;
     } catch (error) {
       throw error;
