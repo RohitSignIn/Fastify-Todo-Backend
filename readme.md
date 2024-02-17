@@ -85,6 +85,53 @@ Several Fastify plugins such as `fastify-bcrypt` and `fastify-jwt` are employed 
   }
   ```
 
+## Todo Management
+
+### Get All Todos
+
+- **Endpoint:** `GET /api/v1/todo`
+- **Description:** Returns all todos for the logged-in user.
+- **Authentication:** JWT Token
+
+### Get Todo by ID
+
+- **Endpoint:** `GET /api/v1/todo/{id}`
+- **Description:** Returns details of a specific todo.
+- **Authentication:** JWT Token
+
+### Create Todo
+
+- **Endpoint:** `POST /api/v1/todo/`
+- **Description:** Creates a new todo for the logged-in user.
+- **Authentication:** JWT Token
+- **Payload:**
+  ```json
+  {
+    "task": "Go to Market"
+  }
+  ```
+
+### Update Todo
+
+- **Endpoint:** `PUT /api/v1/todo/`
+- **Description:** Updates the status of a todo for the logged-in user.
+- **Authentication:** JWT Token
+- **Payload:**
+
+  ```json
+  {
+    "update": "status",
+    "to": "COMPLETED",
+    "id": 1
+  }
+  ```
+
+  ### Delete Todo
+
+- **Endpoint:** `DELETE /api/v1/todo/{id}`
+- **Description:** Deletes todo by todoId provided that belongs to the login user.
+- **Authentication:** JWT Token
+
 ## Database Schema
 
 ### User
