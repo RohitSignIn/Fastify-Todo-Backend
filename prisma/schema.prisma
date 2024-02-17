@@ -28,6 +28,7 @@ model Todo {
   task String
   status Status
   userId Int?
+  // On deleting a user all Todos also will be deleted belongs to the user - cascade delete
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
